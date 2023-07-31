@@ -4,7 +4,12 @@
     "target": "es2022",
     "declaration": true,
     "outDir": "./dist",
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "useUnknownInCatchVariables": true,
   },
   "include": [
     "src/**/*"

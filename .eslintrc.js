@@ -8,11 +8,11 @@ module.exports = {
     'standard-with-typescript',
     'plugin:react/jsx-runtime'
   ],
-  overrides: [
-  ],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: './tsconfig.json',
     tsconfigRootDir: __dirname
   },
   plugins: [
@@ -21,12 +21,13 @@ module.exports = {
   ],
   rules: {
     'max-len': ['error', 120],
-    '@typescript-eslint/no-explicit-any': 'error'
+    '@typescript-eslint/no-explicit-any': 'error',
+    'require-jsdoc': 2,
   },
   settings: {
     react: {
       version: 'detect'
     }
   },
-  ignorePatterns: ['build/*']
-}
+  ignorePatterns: ['build/*', '.eslintrc.js']
+};
