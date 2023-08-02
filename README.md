@@ -1,3 +1,5 @@
+Library under testing not release yet 
+
 # Easy Hooks
 
 Easy Hooks is an efficient, powerful React Hook library designed to facilitate seamless data fetching and state management in React applications. This library centers on the Single Source of Truth (SSOT) pattern, ensuring that all components using the same parameters receive data from the same source, thereby enhancing data consistency and synchronization across your application. As a result, Easy Hooks encourages you to write DRY (Don't Repeat Yourself), efficient, and maintainable code.
