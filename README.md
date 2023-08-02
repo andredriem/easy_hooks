@@ -18,6 +18,15 @@ Easy Hooks automatically handles the lifecycle of data fetching based on the lif
 
 Easy Hooks provides a range of hooks to cater to different data fetching scenarios. Whether you're fetching data once, polling an API periodically, or managing a real-time connection using WebSockets with ActionCable, Easy Hooks has you covered.
 
+### Attention
+
+Easy Hooks is primarily designed for the management of server data, particularly the fetching, synchronization, and efficient use of server data based on your component's lifecycle.
+
+However, when it comes to state management specifically associated with UI logic that require persistent logic across different components or parts of your application, other libraries might be a better fit. Libraries such as Redux excel in these scenarios, providing global state management and persistent logic that can be easily consumed across your application. This could include complex state management scenarios such as handling form states, modals, or application themes that need to be persistent and accessible from multiple components.
+
+Choosing the right tool for the right job is key to efficient and maintainable code. While Easy Hooks is an excellent choice for server-side data management, do consider other solutions for more UI-centered, persistent state management tasks.
+
+
 ### Customizable Hooks
 
 For those unique cases that don't fit into the provided hooks, Easy Hooks offers the `generateHook` function. This function allows you to implement your own data fetching and stopping logic, granting you the flexibility you need for your specific use cases.
