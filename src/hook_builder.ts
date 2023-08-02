@@ -3,6 +3,8 @@ import { useId, useEffect, useState } from 'react'
 abstract class Subscriber<Data, ErrorData> {
   parameters: string = ''
 
+  currentData: { data: Data | null, errorData: ErrorData | null } = { data: null, errorData: null }
+
   constructor (parameters: string) {
     this.parameters = parameters
   }
@@ -43,6 +45,7 @@ abstract class Subscriber<Data, ErrorData> {
   }
 
   notifyObservers (data: Data | null, errorData: ErrorData | null): void {
+    this.currentData = { data, errorData }
     for (const observerFunction of this.observersFunctions.values()) {
       observerFunction(data, errorData)
     }
@@ -75,13 +78,23 @@ function useGeneric<Data, ErrorData, CompressedData> (
 ): [data: CompressedData | null, error: ErrorData | null, componentId: string] {
   const componentId = useId()
 
+  // Tries to get the subscriber from the pool and retrieves the data and error from it if it exists
+  const subscriber = subscriberPool[parameter]
+  let initialState: { data: Data | null, errorData: ErrorData | null } = { data: null, errorData: null }
+  if (subscriber !== undefined) {
+    initialState = subscriber.currentData
+  }
+
   // We can optimize the useState function combine both CompressedData and ErrorData in one state, this wil reduce the
   // number of useState calls thus reducing the number of renders
   const [state, setState] =
-    useState<{ data: CompressedData | null, error: ErrorData | null }>({ data: null, error: null })
+    useState<{ data: CompressedData | null, errorData: ErrorData | null }>({
+      data: stateCompresser(initialState.data),
+      errorData: initialState.errorData
+    })
 
   const genericData = state.data
-  const errorResponse = state.error
+  const errorResponse = state.errorData
 
   useEffect(() => {
     let mounted = true
@@ -115,7 +128,7 @@ function useGeneric<Data, ErrorData, CompressedData> (
           console.error(e)
         }
 
-        setState({ data: compressedData, error: errorData })
+        setState({ data: compressedData, errorData })
       })
     }
 
