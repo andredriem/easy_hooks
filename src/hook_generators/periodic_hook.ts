@@ -5,6 +5,15 @@ import { generateHook, type GeneratorResponse } from './generate_hook'
  * @param fetchData Function that fetches data and notifies observers of the result.
  * @param interval Interval in milliseconds at which to fetch data.
  * @param options Optional configuration options for the hook.
+ *  - shouldRetryOnError: Whether to retry fetching data if an error occurs (defaults to true).
+ *  - errorInterval: Interval in milliseconds at which to retry fetching data if an error occurs.
+ *    if it is an array, the interval will be the value at the index of the retry count, if the index is out of bounds
+ *    the last value of the array will be used, if the array is empty the interval will be the same as the interval.
+ *  - delayStopFetching: Delay in milliseconds before stopping fetching data after the last component unsubscribes,
+ *    this is usefull to prevent the cache from expiring too soon if you expect some components with the same parameters
+ *    to be mounted really soon after the last one unmounts.
+ *  - maximumRetryCount: Maximum number of retries before stopping to retry fetching data.
+ *  - displayThisErrorDataIfMaximumRetryCountIsReached: Error data to display if the maximum retry count is reached.
  * @returns An object containing the hook's response data and error data, as well as a function to stop fetching.
  */
 export function generatePeriodicHook<Data, ErrorData> (

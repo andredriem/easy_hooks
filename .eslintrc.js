@@ -21,7 +21,7 @@ module.exports = {
     'react-hooks'
   ],
   rules: {
-    'max-len': ['error', 120],
+    'max-len': ['error', 140],
     '@typescript-eslint/no-explicit-any': 'error',
     'require-jsdoc': 2,
   },
