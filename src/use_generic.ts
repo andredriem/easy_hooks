@@ -67,7 +67,7 @@ export function useGeneric<Data, ErrorData, CompressedData, CompressedErrorData>
       currentNotifier?.unsubscribe(componentId)
       mounted = false
     }
-  }, [componentId, parameter, subscriberPool, SubcriberClass])
+  }, [componentId, parameter, subscriberPool, SubcriberClass, NotifierClass, subscriberOptions])
 
   return [genericData, errorResponse, componentId]
 }
