@@ -61,7 +61,11 @@ export function useGeneric<Data, ErrorData, CompressedData, CompressedErrorData>
       subscriberMiddlewareClass
     )
 
-    if (middleware !== undefined && !middleware.observerFunctionMap.has(componentId)) {
+    if (middleware === undefined) {
+      throw new Error('Middleware not found, this is a bug in the libary easy_hooks. Please report it.')
+    }
+
+    if (!middleware.observerFunctionMap.has(componentId)) {
       // Register the observer function in the middleware, so every time the middleware is notified it will call
       // this function to update the state of the component
       middleware.subscribe(componentId, (data, errorData) => {
